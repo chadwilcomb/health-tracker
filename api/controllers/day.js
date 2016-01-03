@@ -21,60 +21,13 @@ exports.postDay = function(req, res) {
       res.send(err);
       return;
     }
-
+    day = day.toObject();
+    delete day['_id'];
+    delete day['userId'];
+    delete day['__v'];
+    delete day['created'];
     res.json(day);
   });
-
-  // Check to make sure Year exists already, if not insert one
-  // Year.findOne({ userId: req.user._id, year: day.date.getFullYear() },
-  //   function (err, year) {
-  //     if (err)
-  //       res.send(err);
-  //
-  //     // If it doesn't already exist, insert a new Year and add the _yearId to the Day
-  //     if (year === null) {
-  //       console.log('year doesn\'t exist, creating new Year');
-  //       var newYear = new Year({
-  //         userId: req.user._id,
-  //         year: day.date
-  //       });
-  //       // newYear.userId = req.user._id;
-  //       // newYear.year = day.date;
-  //
-  //       // Save the Year and check for errors
-  //       newYear.save(function (err) {
-  //         if (err)
-  //           res.send(err);
-  //
-  //         day._yearId = newYear._id;
-  //
-  //         // Save the Day and check for errors
-  //         day.save(function(err) {
-  //           if (err) {
-  //             res.send(err);
-  //             return;
-  //           }
-  //
-  //           res.json(day);
-  //         });
-  //
-  //       });
-  //
-  //     // If Year exists, add the _yearId to the Day and save
-  //     } else {
-  //       console.log('year exists, ' + year.id);
-  //       day._yearId = year.id;
-  //
-  //       // Save the day and check for errors
-  //       day.save(function(err) {
-  //         if (err)
-  //           res.send(err);
-  //
-  //         res.json(day);
-  //       });
-  //     }
-  //   });
-
 
 };
 
@@ -82,24 +35,45 @@ exports.postDay = function(req, res) {
 exports.getDaysForYear = function(req, res) {
 
   // Use the Day model to find all days
-  Day.find({ userId: req.user._id, year: req.params.year }, function(err, dayReports) {
-    if (err)
-      res.send(err);
+  Day
+    .find({ userId: req.user._id, year: req.params.year })
+    .select('-_id -userId -created -__v')
+    .exec(function(err, dayReports) {
+      if (err)
+        res.send(err);
 
-    res.json(dayReports);
-  });
+      res.json(dayReports);
+    });
+};
+
+// Create endpoint /api/days/ for GET
+exports.getAllDaysForUser = function(req, res) {
+
+  // Use the Day model to find all days
+  Day
+    .find({ userId: req.user._id })
+    .select('-_id -userId -updated -created -__v')
+    .exec(function(err, dayReports) {
+      if (err)
+        res.send(err);
+
+      res.json(dayReports);
+    });
 };
 
 // Create endpoint /api/day/:date for GET
 exports.getDay = function(req, res) {
 
   // Use the Day model to find a specific day
-  Day.findOne({ userId: req.user._id, date: req.params.date }, function(err, day) {
-    if (err)
-      res.send(err);
+  Day
+    .findOne({ userId: req.user._id, date: req.params.date })
+    .select('-_id -userId -updated -created -__v')
+    .exec(function(err, day) {
+      if (err)
+        res.send(err);
 
-    res.json(day);
-  });
+      res.json(day);
+    });
 };
 
 // Create endpoint /api/day/:date for PUT

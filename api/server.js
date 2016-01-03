@@ -9,7 +9,6 @@ var cors = require('cors');
 var authController = require('./controllers/auth');
 var userController = require('./controllers/user');
 var dayController = require('./controllers/day');
-var yearController = require('./controllers/year');
 
 var port = process.env.PORT || 8080;
 var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/miles-drinks';
@@ -36,12 +35,7 @@ app.use(passport.initialize());
 // Create our Express router
 var router = express.Router();
 
-// Create endpoint handlers for /year
-// router.route('/year')
-//   .get(authController.isAuthenticated, yearController.getYears);
-// router.route('/year/:year')
-//   .get(authController.isAuthenticated, yearController.getYear);
-
+// Create endpoint handlers for /day POST
 router.route('/day/')
   .post(authController.isAuthenticated, dayController.postDay);
 
@@ -51,15 +45,20 @@ router.route('/day/:date')
   .put(authController.isAuthenticated, dayController.putDay)
   .delete(authController.isAuthenticated, dayController.deleteDay);
 
+// Create endpoint handlers for /days GET
+router.route('/days')
+  .get(authController.isAuthenticated, dayController.getAllDaysForUser);
+
+// Create endpoint handlers for /days/:year GET
 router.route('/days/:year')
   .get(authController.isAuthenticated, dayController.getDaysForYear);
 
 // Create endpoint handlers for /users
-router.route('/users')
+router.route('/user')
   .post(userController.postUser)
   .get(authController.isAuthenticated, userController.getUsers);
 
-router.route('/users/:username')
+router.route('/user/:username')
   .get(authController.isAuthenticated, userController.getUser)
   .delete(authController.isAuthenticated, userController.deleteUser);
 
