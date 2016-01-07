@@ -1,6 +1,5 @@
 // Load required packages
 var Day = require('../models/day');
-// var Year = require('../models/year');
 
 // Create endpoint /api/day for POSTS
 exports.postDay = function(req, res) {
@@ -22,7 +21,6 @@ exports.postDay = function(req, res) {
       return;
     }
     day = day.toObject();
-    delete day['_id'];
     delete day['userId'];
     delete day['__v'];
     delete day['created'];
@@ -37,7 +35,7 @@ exports.getDaysForYear = function(req, res) {
   // Use the Day model to find all days
   Day
     .find({ userId: req.user._id, year: req.params.year })
-    .select('-_id -userId -created -__v')
+    .select('-userId -created -__v')
     .exec(function(err, dayReports) {
       if (err)
         res.send(err);
@@ -52,7 +50,7 @@ exports.getAllDaysForUser = function(req, res) {
   // Use the Day model to find all days
   Day
     .find({ userId: req.user._id })
-    .select('-_id -userId -updated -created -__v')
+    .select('-userId -updated -created -__v')
     .exec(function(err, dayReports) {
       if (err)
         res.send(err);
@@ -67,7 +65,7 @@ exports.getDay = function(req, res) {
   // Use the Day model to find a specific day
   Day
     .findOne({ userId: req.user._id, date: req.params.date })
-    .select('-_id -userId -updated -created -__v')
+    .select('-userId -updated -created -__v')
     .exec(function(err, day) {
       if (err)
         res.send(err);
