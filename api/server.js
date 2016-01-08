@@ -41,6 +41,7 @@ router.route('/day/')
 
 // Create endpoint handlers for /day/:date
 router.route('/day/:date')
+  .post(authController.isAuthenticated, dayController.postDay)
   .get(authController.isAuthenticated, dayController.getDay)
   .put(authController.isAuthenticated, dayController.putDay)
   .delete(authController.isAuthenticated, dayController.deleteDay);

@@ -12,7 +12,7 @@ exports.postDay = function(req, res) {
   day.year = req.body.date || new Date();
   day.miles = req.body.miles;
   day.drinks = req.body.drinks;
-  day.weight = req.body.weight;
+  if (req.body.weight) day.weight = req.body.weight;
   day.year = req.body.date;
   // Save the Day and check for errors
   day.save(function(err) {
@@ -83,7 +83,7 @@ exports.putDay = function(req, res) {
     {
       miles: req.body.miles,
       drinks: req.body.drinks,
-      weight: req.body.weight,
+      // weight: req.body.weight,
       updated: new Date()
     },
     { new: true },
