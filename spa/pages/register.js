@@ -77,7 +77,7 @@ export default React.createClass({
 
                 <button type='submit' className='btn btn-default'>Register me!</button>
                 <div>
-                  <a href='/'>Already registered</a>
+                  <a href='/signin'>Already registered</a>
                 </div>
               </fieldset>
             </form>

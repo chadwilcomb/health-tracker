@@ -1,6 +1,9 @@
 .day-view {
   .card.center {
     text-align: center;
+    .card-title {
+      margin-bottom: 0;
+    }
     .day-controls {
       list-style: none;
       padding: 0;
@@ -12,13 +15,17 @@
     .day-value {
       font-size: 1.5em;
       user-select: none;
+      padding: 0 10px;
       &.miles, &.drinks {
         min-width: 3em;
       }
     }
     .increment-btn {
       cursor: pointer;
-      padding: 5px;
+      padding: 5px 15px;
+    }
+    .summary-title-sm {
+      margin-top: 15px;
     }
   }
 

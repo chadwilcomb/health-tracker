@@ -23,10 +23,9 @@ export default Router.extend({
   },
 
   routes: {
-    '': 'public',
+    '': 'input',
+    'signin': 'public',
     'register': 'registerUser',
-    'input': 'input',
-    'day/:date': 'day',
     'logout': 'logout',
     '*fourohfour': 'fourOhFour'
   },
@@ -35,7 +34,7 @@ export default Router.extend({
     if (!app.me.authenticated) {
       this.renderPage(<PublicPage me={app.me}/>, { layout: false });
     } else {
-      this.redirectTo('/input')
+      this.redirectTo('/')
     }
   },
 
@@ -50,7 +49,7 @@ export default Router.extend({
 
   input () {
     if (!app.me.authenticated) {
-      this.redirectTo('');
+      this.redirectTo('/signin');
     } else {
       app.me.days.fetch();
       this.renderPage(<InputPage days={app.me.days} />)
@@ -60,7 +59,7 @@ export default Router.extend({
   logout () {
     app.me.clear();
     window.localStorage.clear();
-    window.location = '/';
+    window.location = '/signin';
   },
 
   fourOhFour () {

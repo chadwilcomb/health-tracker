@@ -114,10 +114,11 @@ export default React.createClass({
     render () {
         const {days} = this.props;
         const {today} = this.state;
+        const summary = days.getSummaryCurrentYear();
         return (
           <div className='day-view'>
             <div className='row'>
-              <div className='col-sm-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-4 col-md-offset-4'>
                 <div className='card card-block center'>
                   <h4 className="card-title">Date</h4>
                   <div className='card-text'>
@@ -129,7 +130,7 @@ export default React.createClass({
               </div>
             </div>
             <div className='row'>
-              <div className='col-sm-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-4 col-md-offset-4'>
                 <div className='card card-block center'>
                   <h4 className="card-title">Miles</h4>
                   <div className='card-text'>
@@ -143,7 +144,7 @@ export default React.createClass({
               </div>
             </div>
             <div className='row'>
-              <div className='col-sm-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-4 col-md-offset-4'>
                 <div className='card card-block center'>
                   <h4 className="card-title">Drinks</h4>
                   <div className='card-text'>
@@ -152,6 +153,26 @@ export default React.createClass({
                       <li className='day-value drinks'>{today.drinks}</li>
                       <li className='increment-btn' onClick={this.incrementDrinks}><i className='fa fa-plus'></i></li>
                     </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='col-xs-12 col-md-4 col-md-offset-4'>
+                <div className='card card-block center'>
+                  <div className='row'>
+                    <div className='col-xs-4'>
+                      <div className='summary-title-sm'>Miles</div>
+                      <div className='summary-value-sm'>{summary.miles}</div>
+                    </div>
+                    <div className='col-xs-4'>
+                      <h4 className='summary-title-lg'>Score</h4>
+                      <h1 className='summary-value-lg'>{summary.score}</h1>
+                    </div>
+                    <div className='col-xs-4'>
+                      <div className='summary-title-sm'>Drinks</div>
+                      <div className='summary-value-sm'>{summary.drinks}</div>
+                    </div>
                   </div>
                 </div>
               </div>
