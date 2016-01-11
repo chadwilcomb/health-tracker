@@ -15,10 +15,12 @@ export default React.createClass({
         <a className="navbar-brand" href="/"><i className="fa fa-heartbeat"></i> Health Trackr</a>
         <ul className="nav navbar-nav pull-right">
           <li className="nav-item">
-            <span className="nav-link">Welcome, {me.username}</span>
+            <span className="nav-link hidden-xs-down">Welcome, {me.username}</span>
+            <span className="nav-link hidden-sm-up">{me.username}</span>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/logout">Logout</a>
+            <a className="nav-link hidden-xs-down" href="/logout" title="Logout">Logout</a>
+            <a className="nav-link hidden-sm-up" href="/logout" title="Logout"><i className="fa fa-sign-out"></i></a>
           </li>
         </ul>
       </nav>

@@ -18,7 +18,6 @@ export default React.createClass({
     },
 
     componentDidMount () {
-      console.log('componentDidMount');
       const _this = this;
       const {days} = this.props;
       const dateStr = moment().format('MM-DD-YYYY');
