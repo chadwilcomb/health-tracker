@@ -66,7 +66,7 @@ export default React.createClass({
                   <input id='inputPassword' onChange={this.onPasswordChange} name='inputPassword' placeholder='Enter password' className='form-control' type='password'  value={password} required/>
                 </div>
 
-                <button type='submit' className='btn btn-default'>Sign in</button>
+                <button type='submit' className='btn btn-secondary'>Sign in</button>
                 <div><a href='/register'>Register user</a></div>
 
               </fieldset>

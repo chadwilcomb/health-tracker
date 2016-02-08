@@ -75,7 +75,7 @@ export default React.createClass({
                   <input id='confirm' onChange={this.onPropChange} name='confirm' type='password' placeholder='Confirm password' className='form-control' value={confirm} required/>
                 </div>
 
-                <button type='submit' className='btn btn-default'>Register me!</button>
+                <button type='submit' className='btn btn-secondary'>Register me!</button>
                 <div>
                   <a href='/signin'>Already registered</a>
                 </div>

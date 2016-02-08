@@ -13,6 +13,11 @@ export default React.createClass({
     return (
       <nav className="navbar navbar-light bg-faded">
         <a className="navbar-brand" href="/"><i className="fa fa-heartbeat"></i> Health Trackr</a>
+        <ul className="nav navbar-nav">
+          <li className="nav-item">
+            <a className="nav-link" href="/chart" title="Chart"><i className="fa fa-bar-chart"></i></a>
+          </li>
+        </ul>
         <ul className="nav navbar-nav pull-right">
           <li className="nav-item">
             <span className="nav-link hidden-xs-down">Welcome, {me.username}</span>
