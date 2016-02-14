@@ -45,7 +45,6 @@
     "body-parser": "^1.13.1",
     "bootstrap": "twbs/bootstrap#v4.0.0-alpha.2",
     "bootstrap-loader": "^1.0.3",
-    "chart.js": "^1.0.2",
     "cors": "^2.7.1",
     "css-loader": "^0.12.1",
     "d3": "^3.5.14",

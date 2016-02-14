@@ -1,9 +1,16 @@
+
 .mile-bar {
-  fill: steelblue;
+  fill: $blue-400;
 }
 
 .drink-bar {
-  fill: brown;
+  fill: $red-400;
+}
+
+.trendline {
+  fill: none;
+  stroke: $grey-900;
+  stroke-width: 1.5px;
 }
 
 .axis text {

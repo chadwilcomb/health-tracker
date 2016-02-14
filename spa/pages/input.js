@@ -114,10 +114,11 @@ export default React.createClass({
         const {days} = this.props;
         const {today} = this.state;
         const summary = days.getSummaryCurrentYear();
+        const score = summary.score >= 0 ? '+' + summary.score : '-' + summary.score;
         return (
           <div className='day-view'>
             <div className='row'>
-              <div className='col-xs-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-6 col-sm-offset-3'>
                 <div className='card card-block center'>
                   <h4 className="card-title">Date</h4>
                   <div className='card-text'>
@@ -129,7 +130,7 @@ export default React.createClass({
               </div>
             </div>
             <div className='row'>
-              <div className='col-xs-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-6 col-sm-offset-3'>
                 <div className='card card-block center'>
                   <h4 className="card-title">Miles</h4>
                   <div className='card-text'>
@@ -143,7 +144,7 @@ export default React.createClass({
               </div>
             </div>
             <div className='row'>
-              <div className='col-xs-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-6 col-sm-offset-3'>
                 <div className='card card-block center'>
                   <h4 className="card-title">Drinks</h4>
                   <div className='card-text'>
@@ -157,7 +158,7 @@ export default React.createClass({
               </div>
             </div>
             <div className='row'>
-              <div className='col-xs-12 col-md-4 col-md-offset-4'>
+              <div className='col-xs-12 col-md-6 col-sm-offset-3'>
                 <div className='card card-block center'>
                   <div className='row'>
                     <div className='col-xs-4'>
@@ -166,7 +167,7 @@ export default React.createClass({
                     </div>
                     <div className='col-xs-4'>
                       <h4 className='summary-title-lg'>Score</h4>
-                      <h1 className='summary-value-lg'>{summary.score}</h1>
+                      <h1 className='summary-value-lg'>{score}</h1>
                     </div>
                     <div className='col-xs-4'>
                       <div className='summary-title-sm'>Drinks</div>

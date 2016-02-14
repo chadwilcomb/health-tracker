@@ -19,7 +19,7 @@ export default React.createClass({
     setUpChart () {
       const {margin,width,height} = this.state;
       const {days} = this.props;
-      const data = days.getLastDays(21).reverse();
+      const data = days.getLastDays().reverse();
 
       if (!data.length) return false;
 
@@ -39,14 +39,29 @@ export default React.createClass({
         .range([0, height])
         .nice();
 
+      var lineMax = d3.max(data, function(d) { return d.score; });
+
+      var yLine = this.yLine = d3.scale.linear()
+        .domain([lineMax,-lineMax])
+        .range([0, height]);
+
+      var line = d3.svg.line()
+        .x(function(d) { return x(parseDate(d.date)); })
+        .y(function(d) { return yLine(d.score); });
+
+
       var xAxis = this.xAxis = d3.svg.axis()
-        .scale(this.x)
+        .scale(x)
         .orient("bottom")
         .tickFormat(d3.time.format("%m-%d"));
 
       var yAxis = this.yAxis = d3.svg.axis()
-        .scale(this.y)
+        .scale(y)
         .orient("left");
+
+      var yLineAxis = this.yLineAxis = d3.svg.axis()
+        .scale(this.yLine)
+        .orient("right");
 
       var svg = this.svg = d3.select("#chart");
 
@@ -68,9 +83,19 @@ export default React.createClass({
           .attr("height", function(d) { return Math.abs(y(-d.drinks) - y(0)); })
           .attr("width", x.rangeBand());
 
+      svg.append("path")
+          .datum(data)
+          .attr("class", "trendline")
+          .attr("d", line);
+
       svg.append("g")
           .attr("class", "y axis")
           .call(yAxis);
+
+      svg.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + width + " ,0)")
+          .call(yLineAxis);
 
       svg.append("g")
           .attr("class", "x axis")
@@ -82,19 +107,31 @@ export default React.createClass({
           .attr("dy", "-.55em")
           .attr("transform", "rotate(-90)" );
 
+
+
+      this.chartInitialized = true;
+
     },
 
     updateChart () {
       const {margin,width,height} = this.state;
-      console.log(this.state);
       const {days} = this.props;
-      const data = days.getLastDays(14).reverse();
+      const data = days.getLastDays().reverse();
 
-      this.x.rangeRoundBands([0, width], .2);
-      this.y.range([0, height]);
+      const x = this.x;
+      const y = this.y;
+      const yLine = this.yLine;
+
+      if (!this.chartInitialized) {
+        this.setUpChart();
+        return false;
+      }
+
+      x.rangeRoundBands([0, width], .2);
+      y.range([0, height]);
 
       this.svg.selectAll(".x.axis")
-        .attr("transform", "translate(0," + this.y(0) + ")")
+        .attr("transform", "translate(0," + y(0) + ")")
         .call(this.xAxis)
         .selectAll("text")
           .style("text-anchor", "end")
@@ -107,17 +144,19 @@ export default React.createClass({
 
       this.svg.selectAll(".mile-bar")
           .data(data)
-          .attr("y", function(d) { return this.y(Math.max(0, d.miles)); })
-          .attr("x", function(d, i) { return this.x(parseDate(d.date)); })
-          .attr("height", function(d) { return Math.abs(this.y(d.miles) - this.y(0)); })
-          .attr("width", this.x.rangeBand());
+          .attr("y", function(d) { return y(Math.max(0, d.miles)); })
+          .attr("x", function(d, i) { return x(parseDate(d.date)); })
+          .attr("height", function(d) { return Math.abs(y(d.miles) - y(0)); })
+          .attr("width", x.rangeBand());
 
       this.svg.selectAll(".drink-bar")
           .data(data)
-          .attr("y", function(d) { return this.y(Math.max(0, -d.drinks)); })
-          .attr("x", function(d, i) { return this.x(parseDate(d.date)); })
-          .attr("height", function(d) { return Math.abs(this.y(-d.drinks) - y(0)); })
-          .attr("width", this.x.rangeBand());
+          .attr("y", function(d) { return y(Math.max(0, -d.drinks)); })
+          .attr("x", function(d, i) { return x(parseDate(d.date)); })
+          .attr("height", function(d) { return Math.abs(y(-d.drinks) - y(0)); })
+          .attr("width", x.rangeBand());
+
+
     },
 
     getInitialState () {
@@ -127,9 +166,9 @@ export default React.createClass({
         height: window.innerHeight * 0.9 - 50,
         margin: {
           top: 20,
-          right: 10,
+          right: 25,
           bottom: 30,
-          left: 40
+          left: 20
         },
         mileStyle: {
           fill: "steelblue"
