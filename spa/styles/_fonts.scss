@@ -1,0 +1,7 @@
+// This path is relative to this file!
+$fonts-url-path: '../fonts';
+
+@font-face {
+  font-family: 'Exo-Regular';
+  src: url('#{$fonts-url-path}/Exo-Regular.otf') format('opentype');
+}

@@ -1,32 +1,25 @@
 .day-view {
-  .card.center {
-    text-align: center;
-    .card-title {
-      margin-bottom: 0;
-    }
-    .day-controls {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      li {
-        display: inline-block;
+  .btn-row {
+    padding: 0.5rem;
+    margin-bottom: 0.5em;
+    background-color: $brand-primary-light;
+    .btn-section {
+      text-align: center;
+      vertical-align: middle;
+      button {
+        height: 100%;
+        width: 100%;
       }
-    }
-    .day-value {
-      font-size: 1.5em;
-      user-select: none;
-      padding: 0 10px;
-      &.miles, &.drinks {
-        min-width: 3em;
+      .title {
+        font-size: 0.85em;
       }
-    }
-    .increment-btn {
-      cursor: pointer;
-      padding: 5px 15px;
-    }
-    .summary-title-sm {
-      margin-top: 15px;
+      .value {
+        font-size: 1.25em;
+        &.summary {
+          font-size: 1.75em;
+          color: $brand-primary;
+        }
+      }
     }
   }
-
 }
