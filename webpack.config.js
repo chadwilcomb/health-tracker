@@ -12,7 +12,7 @@ var favicon = '<link rel="shortcut icon" href="images/favicon/favicon.ico" type=
   '<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon-180x180.png" />';
 
 
-module.exports = getConfig({
+var config = getConfig({
   in: 'spa/app.js',
   out: 'public',
   isDev: process.env.NODE_ENV !== 'production',
@@ -24,3 +24,7 @@ module.exports = getConfig({
     };
   }
 });
+
+config.devtool = '#eval-cheap-module-source-map';
+
+module.exports = config;

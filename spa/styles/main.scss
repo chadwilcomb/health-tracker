@@ -1,3 +1,9 @@
 @import '~font-awesome/css/font-awesome.css';
 @import './_colors.scss';
 @import './day-view.scss';
+
+.navbar {
+  .fa-heartbeat {
+    color: $brand-primary;
+  }
+}
